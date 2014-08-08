@@ -92,7 +92,7 @@ ymmv).  Assuming you find IPython waiting for you at that address, you can use a
 this to reach your Oracle database:
 
     %load_ext sql
-    %sql oracle://username:password@hostname/sid
+    %sql oracle://username:password@hostname:1521/sid
 
     # Assuming that got you connected, you can start issuing SQL commands like
     %sql SELECT * FROM PRODUCT_COMPONENT_VERSION
