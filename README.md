@@ -23,7 +23,7 @@ account and agreed to their license agreement.
 
 1. If you haven't already, [register for an Oracle account](https://login.oracle.com/mysso/signon.jsp).
 
-2. Once logged in to Oracle's website, go to [Instant Client Downloads for Linux x86-64].  You will need to accept their license agreement before you can download anything.
+2. Once logged in to Oracle's website, go to [Instant Client Downloads for Linux x86-64](http://www.oracle.com/technetwork/topics/linuxx86-64soft-092277.html).  You will need to accept their license agreement before you can download anything.
 
 3. Pay close attention to version number and file names.  For this repository, I am using version 11.2.  You want to download two file: Basic Lite and SDK RPMs (file name should end with .rpm).
 
