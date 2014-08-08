@@ -11,7 +11,9 @@ command `git --version`; if it returns a version number, you've already got git)
 
 Step One: Clone this repository
 -------------------------------
-`git clone https://github.com/bmamlin/docker-ipython-oracle`
+First, clone a copy of this repository:
+
+    git clone https://github.com/bmamlin/docker-ipython-oracle
 
 This will make a `docker-ipython-oracle` folder with a copy of the contents of this repository.
 
