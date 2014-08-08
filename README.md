@@ -64,14 +64,16 @@ can be ignored.  Ideally, it will end with a message saying that the image was s
 built.  Lines like `Oracle Cx succcessfully installed` are reassuring to see as well.  If it 
 fails to build, look at the output to try to sort out the problem.  Did it fail to find either 
 of your RPMs?  Use `docker ps -a` to list out any failed containers and remove them with 
-`docker rm _ID_OR_NAME_`.  Use `docker images` to list any images.  You can leave the ubuntu image 
+`docker rm ID_OR_NAME`.  Use `docker images` to list any images.  You can leave the ubuntu image 
 (so it doesn't need to get downloaded again), but you can remove any unnamed images with 
-`docker rmi _ID_`.  Note that you only need to type the first few characters in an ID for docker 
+`docker rmi ID`.  Note that you only need to type the first few characters in an ID for docker 
 to unambiguously recognize it.
 
 Step Five: Start your docker container
 --------------------------------------
-`docker run -d -p 80:8080 --name ipython ipython`
+Type this command:
+
+    docker run -d -p 80:8080 --name ipython ipython
 
 The `-d` tells docker to run as a background daemon, so you return immediately to the command 
 line.  The `-p 80:8080` tells docker to map port 8080 (exposed by the image, see Dockerfile) 
