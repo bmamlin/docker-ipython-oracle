@@ -80,4 +80,16 @@ line.  The `-p 80:8080` tells docker to map port 8080 (exposed by the image, see
 as port 80 on the host.  `--name ipython` gives the container a convenient name.  And the 
 `ipython` at the end refers the image you built in Step Four.
 
+Step Six: Profit
+----------------
+You should now be able to use your IPython Notebook.  If you are in Windoze or Mac using 
+[boot2docker](https://github.com/boot2docker/boot2docker), then use the command `boot2docker ip` 
+to find the IP address of your virutal host machine (usually something like `192.168.59.103`, but 
+ymmv).  Assuming you find IPython waiting for you at that address, you can use a recipe like 
+this to reach your Oracle database:
 
+    %load_ext sql
+    %sql oracle://username:password@hostname/sid
+
+    # Assuming that got you connected, you can start issuing SQL commands like
+    %sql SELECT * FROM PRODUCT_COMPONENT_VERSION
