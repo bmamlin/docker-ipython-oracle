@@ -64,7 +64,7 @@ Within the folder containing Dockerfile, type this command:
 This is the longest step (can take 5-10 minutes or more depending on your computer and your 
 internet connection.  You'll see a lot of stuff scrolling by and a few obscure, python-related 
 error messages that can be ignored.  Ideally, it will end with a message saying that the image 
-was successfully built.  Lines like `Oracle Cx succcessfully installed` are reassuring to see as 
+was successfully built.  Lines like `Successfully installed cx-oracle` are reassuring to see as 
 well.  If it fails to build, look at the output to try to sort out the problem.  Did it fail to 
 find either of your RPMs?  Use `docker ps -a` to list out any failed containers and remove them 
 with `docker rm ID_OR_NAME`.  Use `docker images` to list any images.  You can leave the ubuntu 
