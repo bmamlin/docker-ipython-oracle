@@ -29,34 +29,15 @@ account and agreed to their license agreement.
 
 3. Pay close attention to version number and file names.  For this repository, I am using version 11.2.  You want to download two file: Basic Lite and SDK RPMs (file name should end with .rpm).
 
-4. Temporarily place these files where they can be fetched from the web.  I used Dropbox and copied the links into the Dockerfile.  Once the image is built, you can delete this files.
+4. Copy the two Oracle RPM files into the rpms folder.
 
-NOTE: It is not sufficient to simply provide links to the Oracle page, since you must be 
-authenticated and have agreed to the licensing terms to access the files.  Likewise, you 
-shouldn't be permanently posting or publicly sharing links to these files, since that would 
-be breaking the licensing agreement.
-
-Step Three: Edit your Dockerfile
---------------------------------
-Since the Oracle Instant Client RPMs are not publicly available on the web, you need to edit your 
-Dockerfile and provide links to your own, personal copies of these RPMs.  From Step Two, you 
-should have two links in hand: one for the Basic Lite RPM and the other for the SDK RPM.
-
-Open the `Dockerfile` file in your favorite text editor and replace these two links in the wget 
-commands in the middle of the file:
-* `https://replace/with/link/to/oracle-instantclient11.2-basiclite-11.2.0.4.0-1.x86_64.rpm`
-* `https://replace/with/link/to/oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm`
-
-If you're links are correct, browsing to either of them in your browser should begin 
-downloading the RPM file.
-
-NOTE: the exact version (numbers beyond the "11.2") may vary.  If you want to use IPython to 
-connect to a different version of Oracle, then you'll want to use the corresponding version 
-and will need to edit the three other places in the Docker file where the versino ("11.2") is 
+NOTE: This docker image is built assuming Oracle version 11.2.  If you want to use IPython to 
+connect to a different version of Oracle, then you'll want to use the corresponding version and 
+will need to edit the three other places in the Docker file where the versino ("11.2") is 
 mentioned to match your version.
 
-Step Four: Build your image
----------------------------
+Step Three: Build your image
+----------------------------
 Within the folder containing Dockerfile, type this command:
 
     docker build -t ipython .
@@ -72,16 +53,17 @@ image (so it doesn't need to get downloaded again), but you can remove any unnam
 `docker rmi ID`.  Note that you only need to type the first few characters in an ID for docker 
 to unambiguously recognize it.
 
-Step Five: Start your docker container
+Step Four: Start your docker container
 --------------------------------------
 Type this command:
 
-    docker run -d -p 80:8080 --name ipython ipython
+    docker run -d -p 80:8080 -p 8022:22 --name ipython ipython
 
 The `-d` tells docker to run as a background daemon, so you return immediately to the command 
 line.  The `-p 80:8080` tells docker to map port 8080 (exposed by the image, see Dockerfile) 
-as port 80 on the host.  `--name ipython` gives the container a convenient name.  And the 
-`ipython` at the end refers the image you built in Step Four.
+as port 80 on the host.  '-p8022:22' tells docker to map port 22 (for ssh access) as port 8022 
+on the host.  `--name ipython` gives the container a convenient name.  And the `ipython` at the 
+end refers the image you built in Step Three.
 
 Step Six: Profit
 ----------------
@@ -96,3 +78,15 @@ this to reach your Oracle database:
 
     # Assuming that got you connected, you can start issuing SQL commands like
     %sql SELECT * FROM PRODUCT_COMPONENT_VERSION
+
+If you need to perform updates, you can ssh into the IPython image using username root and password ipython:
+
+    ssh -p 8022 root@192.168.59.103
+    # password is: ipython
+
+Disclaimer
+==========
+Docker containers are maintained in memory and ephemeral.  Anything you create in your notebook 
+that you want to keep should be exported and saved.  If your container is stopped for any reason 
+(turning off docker for a while or rebooting your computer) you may find that you have an 
+empty notebook again.  You've been warned.
